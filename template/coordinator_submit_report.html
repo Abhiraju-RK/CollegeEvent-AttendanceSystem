@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Submit Event Report</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container py-5">
+  <h2 class="text-primary mb-4">📤 Submit Report – {{ event.name }}</h2>
+  <form method="POST" class="card p-4 shadow">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label">Report Content</label>
+      <textarea name="content" class="form-control" rows="6" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Submit Report</button>
+  </form>
+  <a href="{% url 'coordinator_home' %}"class='btn btn-primary'>Home</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Category</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-5">
+        <div class="card shadow">
+          <div class="card-header bg-primary text-white">
+            <h4 class="text-center">Add Event Category</h4>
+          </div>
+          <div class="card-body">
+            <form method="POST">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label class="form-label">Category Name</label>
+                <input type="text" name="name" class="form-control" required>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Add Category</button>
+            </form>
+            <a href="{% url 'category_list' %}" class="btn btn-link mt-3 w-100">🔙 View All Categories</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="{% url 'admin_home' %}"class='btn btn-primary'>Home</a>
+  </div>
+</body>
+</html>

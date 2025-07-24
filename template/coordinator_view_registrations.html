@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Event Registrations</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container py-5">
+  <h2 class="text-primary mb-4">📝 Registrations – {{ event.name }}</h2>
+  <table class="table table-bordered table-hover">
+    <thead class="table-light">
+      <tr>
+        <th>Student</th>
+        <th>Status</th>
+        <th>Registered At</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for reg in registrations %}
+        <tr>
+          <td>{{ reg.student.user.username }}</td>
+          <td>{{ reg.status }}</td>
+          <td>{{ reg.registered_at }}</td>
+          <td>
+            <a href="{% url 'update_student_registration' reg.id 'Approved' %}" class="btn btn-sm btn-success">Approve</a>
+            <a href="{% url 'update_student_registration' reg.id 'Cancelled' %}" class="btn btn-sm btn-danger">Cancel</a>
+            <a href="{% url 'mark_attendance' reg.id %}?present=true" class="btn btn-sm btn-primary">Mark Present</a>
+            <a href="{% url 'mark_attendance' reg.id %}?present=false" class="btn btn-sm btn-secondary">Mark Absent</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="4" class="text-center text-muted">No registrations found.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{% url 'coordinator_home' %}"class='btn btn-primary'>Home</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .nav-card:hover {
+      transform: scale(1.02);
+      transition: 0.2s ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-white">
+<div class="container py-4">
+  <h2 class="text-center text-primary mb-4">📊 Admin Dashboard</h2>
+
+  <!-- Stat Boxes -->
+  <div class="row g-4 mb-5">
+    <div class="col-md-3">
+      <div class="card text-white bg-info shadow text-center nav-card">
+        <div class="card-body">
+          <h6>Total Events</h6>
+          <h3>{{ total_events }}</h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-white bg-success shadow text-center nav-card">
+        <div class="card-body">
+          <h6>Total Students</h6>
+          <h3>{{ total_students }}</h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-white bg-warning shadow text-center nav-card">
+        <div class="card-body">
+          <h6>Approved Registrations</h6>
+          <h3>{{ total_participants }}</h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-white bg-danger shadow text-center nav-card">
+        <div class="card-body">
+          <h6>Attendance Records</h6>
+          <h3>{{ total_attendance }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Cards -->
+  <div class="row g-3 mb-5">
+    <div class="col-md-3">
+      <a href="{% url 'category_list' %}" class="text-decoration-none">
+        <div class="card text-center nav-card shadow border-0 bg-light">
+          <div class="card-body">📂 Manage Categories</div>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-3">
+      <a href="{% url 'view_events' %}" class="text-decoration-none">
+        <div class="card text-center nav-card shadow border-0 bg-light">
+          <div class="card-body">📅 Manage Events</div>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-3">
+      <a href="{% url 'view_coordinator' %}" class="text-decoration-none">
+        <div class="card text-center nav-card shadow border-0 bg-light">
+          <div class="card-body">🧑‍💼 View Coordinators</div>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-3">
+      <a href="{% url 'view_student' %}" class="text-decoration-none">
+        <div class="card text-center nav-card shadow border-0 bg-light">
+          <div class="card-body">🎓 View Students</div>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-3">
+      <a href="{% url 'view_registrations' %}" class="text-decoration-none">
+        <div class="card text-center nav-card shadow border-0 bg-light">
+          <div class="card-body">📝 View Registrations</div>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-3">
+      <a href="{% url 'send_notification' %}" class="text-decoration-none">
+        <div class="card text-center nav-card shadow border-0 bg-light">
+          <div class="card-body">📢 Send Notification</div>
+        </div>
+      </a>
+    </div>
+    <div class="col-md-3">
+      <a href="{% url 'logout_page' %}" class="text-decoration-none">
+        <div class="card text-center nav-card shadow border-0 bg-danger text-white">
+          <div class="card-body">🚪 Logout</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Event Table -->
+  <h4 class="text-secondary">📅 Upcoming Events</h4>
+  <table class="table table-bordered table-hover mt-3">
+    <thead class="table-light">
+      <tr>
+        <th>Event</th>
+        <th>Category</th>
+        <th>Date</th>
+        <th>Venue</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for event in upcoming_events %}
+        <tr>
+          <td>{{ event.name }}</td>
+          <td>{{ event.category.name }}</td>
+          <td>{{ event.time }}</td>
+          <td>{{ event.venue }}</td>
+          <td>
+            <a href="{% url 'event_participation_report' event.id %}" class="btn btn-sm btn-outline-primary">Report</a>
+            <a href="{% url 'export_event_report_pdf' event.id %}" class="btn btn-sm btn-outline-success">PDF</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5" class="text-center text-muted">No upcoming events</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+</body>
+</html>

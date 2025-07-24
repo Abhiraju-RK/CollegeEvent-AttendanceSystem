@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Registrations</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container py-5">
+  <h2 class="mb-4 text-primary">📝 Student Registrations</h2>
+  <table class="table table-bordered table-hover">
+    <thead class="table-light">
+      <tr>
+        <th>Student</th>
+        <th>Event</th>
+        <th>Status</th>
+        <th>Registered At</th>
+        <th>Action</th>
+        <th>Certificates</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for reg in registrations %}
+        <tr>
+          <td>{{ reg.student.user.username }}</td>
+          <td>{{ reg.event.name }}</td>
+          <td>{{ reg.status }}</td>
+          <td>{{ reg.registered_at }}</td>
+          <td>
+            <a href="{% url 'update_registration_status' reg.id 'Approved' %}" class="btn btn-sm btn-success">Approve</a>
+            <a href="{% url 'update_registration_status' reg.id 'Cancelled' %}" class="btn btn-sm btn-danger">Cancel</a>
+
+          </td>
+          <td>
+            <a href="{% url 'upload_certificate' reg.id %}" class="btn btn-sm btn-success">Provide-Certificate</a>
+          </td>
+        </tr>
+        
+      {% empty %}
+        <tr>
+          <td colspan="5" class="text-center text-muted">No registrations yet.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{% url 'admin_home' %}"class='btn btn-primary'>Home</a>
+</div>
+</body>
+</html>
